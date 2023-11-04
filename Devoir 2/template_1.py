@@ -17,12 +17,16 @@ def prim_mst(N, roads):
         
         See homework statement for more details
     """
+    tot_satis = 0
+    satis = 0
 
-    satisfaction = 0
-    
-    # TO COMPLETE
+    adj = [[] for _ in range(N)]
+    for u,v,s in roads:
+        adj[u].append([v,s])
+        adj[v].append([u,s])
+        tot_satis += s
 
-    return satisfaction
+    return tot_satis-satis
 
     
 if __name__ == "__main__":
