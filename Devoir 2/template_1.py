@@ -29,7 +29,7 @@ def prim_mst(N, roads):
         graph[v].append([u,s])
         tot_graph += s
 
-    visited = []
+    visited = set()
     not_visited = [(0,0)]
 
     while not_visited:
@@ -37,7 +37,7 @@ def prim_mst(N, roads):
 
         if node not in visited:
             tot_satis += satis
-            visited.append(node)
+            visited.add(node)
 
             for node_adj,satis in graph[node]:
                 if node_adj not in visited:
