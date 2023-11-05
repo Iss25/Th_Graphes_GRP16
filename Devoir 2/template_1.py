@@ -17,16 +17,33 @@ def prim_mst(N, roads):
         
         See homework statement for more details
     """
+    tot_graph = 0
     tot_satis = 0
-    satis = 0
 
-    adj = [[] for _ in range(N)]
+    graph = {}
+    for i in range(N):
+        graph[i] = []
+
     for u,v,s in roads:
-        adj[u].append([v,s])
-        adj[v].append([u,s])
-        tot_satis += s
+        graph[u].append([v,s])
+        graph[v].append([u,s])
+        tot_graph += s
 
-    return tot_satis-satis
+    visited = []
+    not_visited = [(0,0)]
+
+    while not_visited:
+        satis, node = heapq.heappop(not_visited)
+        
+        if node not in visited:
+            tot_satis += satis
+            visited.append(node)
+
+            for node_adj, satis in graph[node]:
+                if node_adj not in visited:
+                    heapq.heappush(not_visited, (satis, node_adj))
+
+    return tot_graph-tot_satis
 
     
 if __name__ == "__main__":
