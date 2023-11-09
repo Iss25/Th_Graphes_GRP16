@@ -24,7 +24,8 @@ def prim_mst(N, roads):
     for i in range(N):
         graph[i] = []
 
-    for u,v,s in roads:
+    while roads:
+        u,v,s = roads.pop()
         graph[u].append([v,s])
         graph[v].append([u,s])
         tot_graph += s
