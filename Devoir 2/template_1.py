@@ -18,7 +18,6 @@ def prim_mst(N, roads):
         See homework statement for more details
     """
     tot_graph = 0
-    tot_satis = 0
 
     graph = {}
     for i in range(N):
@@ -37,14 +36,13 @@ def prim_mst(N, roads):
         satis,node = heapq.heappop(not_visited)
 
         if node not in visited.keys():
-            tot_satis += satis
             visited[node] = satis
 
             for node_adj,satis in graph[node]:
                 if node_adj not in visited:
                     heapq.heappush(not_visited, (satis, node_adj))
 
-    return tot_graph-tot_satis
+    return tot_graph-sum(visited.values())
 
     
 if __name__ == "__main__":
