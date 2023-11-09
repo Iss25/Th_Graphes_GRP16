@@ -30,15 +30,15 @@ def prim_mst(N, roads):
         graph[v].append([u,s])
         tot_graph += s
 
-    visited = set()
+    visited = {}
     not_visited = [(0,0)]
 
     while not_visited:
         satis,node = heapq.heappop(not_visited)
 
-        if node not in visited:
+        if node not in visited.keys():
             tot_satis += satis
-            visited.add(node)
+            visited[node] = satis
 
             for node_adj,satis in graph[node]:
                 if node_adj not in visited:
