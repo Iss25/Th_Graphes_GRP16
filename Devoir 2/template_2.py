@@ -87,6 +87,27 @@ def min_cut(N, edges):
         
         # TO COMPLETE
 
+        t = Union_Find(nodes)
+        verify=[False]*len(edges)
+
+        while t.N > 2:
+            random_int = random.randint(0, len(edges)-1)
+            if verify[random_int] == False:
+                verify[random_int] = True
+                random_edge = edges[random_int]
+    
+                if t.find(random_edge[0])!=t.find(random_edge[1]):
+                    t.union(random_edge[0],random_edge[1])
+                    t.N-=1
+        
+        this_min_cut = 0
+        i=0
+        for a, b in edges:
+            if t.find(a)!=t.find(b):
+                this_min_cut+=1
+                i+=1
+
+
         return this_min_cut 
    
     
@@ -94,9 +115,26 @@ def min_cut(N, edges):
     
     # TO COMPLETE (apply karger several times)
     # Probability to return the true min cut should be at least 0.9999
-    
+    binomial = math.factorial(N)/(2*math.factorial(N-2))
+    p=1/binomial
+    k = math.ceil(math.log(0.0001,1-p))
+    l=[0]*len(edges)
+    for i in range(k):
+        l[karger(N, edges)]+=1/k
+
+    """
+    best_min_cut = len(edges)
+    for i in range(len(l)):
+        if i<best_min_cut and l[i]>=p:
+            best_min_cut = i
     return best_min_cut
-    
+    """
+    for i in range(len(l)):
+        #prend la coupe min de proba >= p
+        if l[i] >= p:
+            return i
+        
+    return -1 #pas de coupe minimale (devrait pas arriver)
    
 if __name__ == "__main__":
 
@@ -129,4 +167,3 @@ if __name__ == "__main__":
         else:
             print("Exercice 2 : Wrong answer")
             print("Your output : %d ; Correct answer : %d" % (ans, expected_output)) 
-
