@@ -76,5 +76,3 @@ if __name__ == "__main__":
         else:
             print("Exercice 1 : Wrong answer")
             print("Your output : %d ; Correct answer : %d" % (ans1, expected_output)) 
-        
-
