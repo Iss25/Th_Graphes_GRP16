@@ -40,12 +40,17 @@ def save_graph(file_name,graph):
 
 if __name__ == "__main__":
     doc = os.listdir("Devoir 3/test_bench_students")
-    
+    i = 0
     for file in sorted(doc):
+        i += 1 
         graph = load_graph("Devoir 3/test_bench_students/" + file)
+        # print(graph)
         eulerian_path = eulerian_path_finder(graph)
         if eulerian_path is None:
             print("No eulerian path found for " + file)
         else:
             print("Eulerian path found for " + file)
             print(eulerian_path)
+            
+        # if i == 5:
+        #     break
