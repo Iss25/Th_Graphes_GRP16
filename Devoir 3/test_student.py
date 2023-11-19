@@ -1,4 +1,5 @@
-
+import os
+from pathfinder_hw_iss import eulerian_path_finder
 
 
 """
@@ -36,3 +37,15 @@ Writes a graph into file_name.
 def save_graph(file_name,graph):
     with open(file_name,'w') as file:
         file.write(from_adj_to_str(graph))
+
+if __name__ == "__main__":
+    doc = os.listdir("Devoir 3/test_bench_students")
+    
+    for file in sorted(doc):
+        graph = load_graph("Devoir 3/test_bench_students/" + file)
+        eulerian_path = eulerian_path_finder(graph)
+        if eulerian_path is None:
+            print("No eulerian path found for " + file)
+        else:
+            print("Eulerian path found for " + file)
+            print(eulerian_path)
