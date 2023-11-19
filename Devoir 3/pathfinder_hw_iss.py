@@ -10,9 +10,10 @@ def eulerian_path_finder(graph):
     nbr_lien = 0
     
     for k ,v in enumerate(graph):
-        graph_d[k] = v
         nbr_lien += len(v)
-    
+        if len(v) != 0:
+            graph_d[k] = v
+        
     odd_node = 0
     odd_node_key = {}
     
@@ -24,7 +25,7 @@ def eulerian_path_finder(graph):
     if odd_node != 0 and odd_node != 2:
         return None        
     
-    start = 0
+    start = next(iter(graph_d))
     if(odd_node_key != {}):
         start = next(iter(odd_node_key))
     
@@ -48,5 +49,6 @@ def eulerian_path_finder(graph):
 
 if __name__ == "__main__":
     test0 = [[1],[0, 2],[1, 3],[2, 4, 6],[3, 5, 7, 6],[4, 9],[3, 4],[4, 8],[7, 9],[5, 8]]
-    
-    print(eulerian_path_finder(test0))
+    test1 = [[2,5],[2,3],[1,4,0,7],[1,4],[3,2,7,5],[0,4,7,6],[5],[4,2,5]]
+    res = eulerian_path_finder(test1)
+    print(res)
