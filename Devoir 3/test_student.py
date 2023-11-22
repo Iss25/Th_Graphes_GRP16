@@ -1,5 +1,5 @@
 import os
-from pathfinder_hw_iss import eulerian_path_finder
+from pathfinder_hw_iss import * 
 
 
 """
@@ -45,12 +45,19 @@ if __name__ == "__main__":
         i += 1 
         graph = load_graph("Devoir 3/test_bench_students/" + file)
         # print(graph)
-        eulerian_path = eulerian_path_finder(graph)
-        if eulerian_path is None:
+        eulerian_path1 = eulerian_path_finder(graph)
+        #eulerian_path2 = eulerian_path_finder2(graph)
+        # if(eulerian_path1 != eulerian_path2):
+        #     print(file)
+        #     print(eulerian_path1)
+        #     print(eulerian_path2)
+        # else :
+        #     print(file + ": OK")
+        if eulerian_path1 is None:
             print("No eulerian path found for " + file)
         else:
             print("Eulerian path found for " + file)
-            print(eulerian_path)
+            #print(eulerian_path1)
             
-        # if i == 5:
-        #     break
+        if i == 9:
+            break
