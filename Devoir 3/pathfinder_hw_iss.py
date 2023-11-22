@@ -80,6 +80,27 @@ def eulerian_path_finder2(graph):
 
     return eulerian_path[::-1]
 
+def eulerian_path_finder_opti_mais_jsp(graph):
+    graph_d = copy.deepcopy(graph)
+    eulerian_path = []
+    odd_nodes = [key for key in range(len(graph_d)) if len(graph_d[key]) % 2 != 0]
+
+    if len(odd_nodes) not in [0, 2]:
+        return None
+
+    start = odd_nodes[0] if odd_nodes else 0
+    stack = [start]
+
+    while stack:
+        current = stack[-1]
+        if graph_d[current]:
+            next_node = graph_d[current].pop()
+            graph_d[next_node].remove(current)
+            stack.append(next_node)
+        else:
+            eulerian_path.append(stack.pop())
+
+    return eulerian_path[::-1] if eulerian_path else None
 
 if __name__ == "__main__":
     test0 = [[1],[0, 2],[1, 3],[2, 4, 6],[3, 5, 7, 6],[4, 9],[3, 4],[4, 8],[7, 9],[5, 8]]
