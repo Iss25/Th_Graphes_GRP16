@@ -69,11 +69,11 @@ def min_cost_max_flow(s, t, graph_residual):
 
         while queue :
             u = queue.popleft()
+            visited[u] = False
             for edge in graph_residual[u]:
                 if (edge.capa > 0) and (edge.weight + distance[u] < distance[edge.v]) :
                     distance[edge.v] = edge.weight + distance[u]
                     parent[edge.v] = edge
-                    parent_node[edge.v] = u
 
                     if (visited[edge.v]==False):
                         queue.append(edge.v)
@@ -81,38 +81,31 @@ def min_cost_max_flow(s, t, graph_residual):
 
         # If we reached sink in BFS starting from source, then return
         # true, else false
-        return visited[t]
+        return distance[t]!=float("Inf")
 
     parent = [-1] * len(graph_residual)
-    parent_node = [-1] * len(graph_residual)
 
     maximum_flow = 0
     minimum_cost = 0
 
     # Augment the flow while there is path from source to sink
     while BellmanFord(parent):
-        print("OKbf")
         # Find minimum residual capacity of the edges along the
         # path filled by BFS. Or we can say find the maximum flow
         # through the path found.
         path_flow = float("Inf")
         this = t
-        print(parent_node)
         while this != s:
             path_flow = min(path_flow, parent[this].capa)
             this = parent[this].u
 
         # Add path flow to overall flow
         maximum_flow += path_flow
-        print("OKpf")
-        print(maximum_flow)
 
         this = t
         while this != s:
             minimum_cost += path_flow*parent[this].weight
             this = parent[this].u
-        print("OKmc")
-        print(minimum_cost)
         
 
         # update residual capacities of the edges and reverse edges
@@ -123,7 +116,6 @@ def min_cost_max_flow(s, t, graph_residual):
             edge.capa -= path_flow
             edge.residual.capa += path_flow
             v = parent[v].u
-        print("OKr")
     
 
     return maximum_flow, minimum_cost
