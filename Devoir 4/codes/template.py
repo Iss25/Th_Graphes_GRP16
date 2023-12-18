@@ -21,8 +21,7 @@ def create_graph(capacities, costs, green_sources: dict, gas_centrals: dict, con
     for x in green_sources:
         graph[s].append(Edge(s,x,green_sources[x],0))
     
-    for x in gas_centrals:
-        l=gas_centrals[x]
+    for x, l in gas_centrals.items():
         previous = l[0]
         for i in range(1,len(l)):
             this = l[i]
